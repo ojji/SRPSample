@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceLib", "EcommerceLib\EcommerceLib.csproj", "{CC8D15DC-E7C6-4388-BB06-8DAA53204B1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceLib.Tests", "EcommerceLib.Tests\EcommerceLib.Tests.csproj", "{6696FF41-A647-4F5B-8FB5-F15EC355576C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC8D15DC-E7C6-4388-BB06-8DAA53204B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8D15DC-E7C6-4388-BB06-8DAA53204B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8D15DC-E7C6-4388-BB06-8DAA53204B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8D15DC-E7C6-4388-BB06-8DAA53204B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6696FF41-A647-4F5B-8FB5-F15EC355576C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6696FF41-A647-4F5B-8FB5-F15EC355576C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6696FF41-A647-4F5B-8FB5-F15EC355576C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6696FF41-A647-4F5B-8FB5-F15EC355576C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
