@@ -1,6 +1,6 @@
 ﻿using EcommerceLib.Domain;
 
-namespace EcommerceLib.Services
+namespace EcommerceLib.Services.OrderProcessor
 {
     public interface IOrderProcessor
     {

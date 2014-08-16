@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EcommerceLib.Domain;
 using EcommerceLib.Services;
+using EcommerceLib.Services.OrderProcessor;
 using Moq;
 using NUnit.Framework;
 
@@ -21,7 +22,7 @@ namespace EcommerceLib.Tests.OrderProcessorTests
         public class When_inventory_reservation_fails : CheckoutTestBase
         {
             [SetUp]
-            public void Setup()
+            public new void SetUp()
             {
                 InventoryService = OrderTestUtils.GetFailingInventoryService();
             }
@@ -83,7 +84,7 @@ namespace EcommerceLib.Tests.OrderProcessorTests
             public class When_charging_attempt_fails : When_inventory_reservation_succeeds
             {
                 [SetUp]
-                public void SetUp()
+                public new void SetUp()
                 {
                     PaymentService = OrderTestUtils.GetFailingPaymentService();
                 }
@@ -167,9 +168,7 @@ namespace EcommerceLib.Tests.OrderProcessorTests
         {
             return new ShoppingCart
             {
-                CustomerEmail = "sample@user.com",
-                Items = new List<OrderItem> { new OrderItem { Identifier = "1", ItemCost = 100m, Quantity = 1 } },
-                TotalCost = 120m
+                CustomerEmail = "sample@user.com"
             };
         }
 
