@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EcommerceLib.Domain;
 using EcommerceLib.Services;
 using EcommerceLib.Services.OrderProcessor;
+using EcommerceLib.Services.PriceCalculator;
 using Moq;
 using NUnit.Framework;
 
@@ -76,7 +77,7 @@ namespace EcommerceLib.Tests.OrderProcessorTests
                 }
                 finally
                 {
-                    PaymentService.Verify(s => s.ProcessPayment(Order.PaymentDetails, Order.Cart.TotalCost), Times.Once);
+                    PaymentService.Verify(s => s.ProcessPayment(Order.PaymentDetails, Order.Cart.GetTotalCost()), Times.Once);
                 }
             }
 
@@ -166,7 +167,7 @@ namespace EcommerceLib.Tests.OrderProcessorTests
     {
         internal static ShoppingCart GetSimpleShoppingCart()
         {
-            return new ShoppingCart
+            return new ShoppingCart(new Mock<IPriceCalculator>().Object)
             {
                 CustomerEmail = "sample@user.com"
             };

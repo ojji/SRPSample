@@ -22,7 +22,7 @@ namespace EcommerceLib.Services.OrderProcessor
                 throw new OrderFailedException("order failed", new ItemReservationFailedException(order.Cart.Items));
             }
 
-            if (!_paymentService.ProcessPayment(order.PaymentDetails, order.Cart.TotalCost))
+            if (!_paymentService.ProcessPayment(order.PaymentDetails, order.Cart.GetTotalCost()))
             {
                 _inventoryService.CancelReservation(order.Cart.Items);
                 throw new OrderFailedException("order failed", new PaymentFailedException(order.PaymentDetails));

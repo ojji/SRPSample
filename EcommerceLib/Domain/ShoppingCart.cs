@@ -1,19 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using EcommerceLib.Services.PriceCalculator;
 
 namespace EcommerceLib.Domain
 {
     public class ShoppingCart
     {
-        private readonly List<OrderItem> _orderItems = new List<OrderItem>();
+        private readonly List<OrderItem> _orderItems;
+        private readonly IPriceCalculator _priceCalculator;
+
+        public ShoppingCart(IPriceCalculator priceCalculator)
+        {
+            _priceCalculator = priceCalculator;
+            _orderItems = new List<OrderItem>();
+        }
 
         public IEnumerable<OrderItem> Items
         {
             get { return _orderItems; }
         }
 
-        public decimal TotalCost { get; set; }
         public string CustomerEmail { get; set; }
+
+        public decimal GetTotalCost()
+        {
+            return _orderItems.Sum(orderItem => _priceCalculator.CalculatePrice(orderItem));
+        }
 
         public void Add(OrderItem item)
         {
