@@ -5,7 +5,7 @@ namespace EcommerceLib.Domain.PricingStrategies
     /// <summary>
     /// Pricing strategy for Buy-X-Items-Get-Y-Percent-Off discounts.
     /// </summary>
-    public class BuyXItemsGetYDiscountFromPrice : IPricingStrategy
+    public class BuyXItemsGetYPercentOff : IPricingStrategy
     {
         /// <summary>
         /// The item id that the discount applies to.
@@ -33,7 +33,7 @@ namespace EcommerceLib.Domain.PricingStrategies
         /// <param name="itemId">The item id that the discount applies to.</param>
         /// <param name="discountedQuantity">The minimum items needed to apply the discount.</param>
         /// <param name="discount">The discount amount between 0.0m and 1.0m.</param>
-        public BuyXItemsGetYDiscountFromPrice(string itemId, int discountedQuantity, decimal discount)
+        public BuyXItemsGetYPercentOff(string itemId, int discountedQuantity, decimal discount)
         {
             if (string.IsNullOrEmpty(itemId)) { throw new ArgumentNullException("itemId"); }
             if (discountedQuantity < 1) { throw new ArgumentOutOfRangeException("discountedQuantity"); }
