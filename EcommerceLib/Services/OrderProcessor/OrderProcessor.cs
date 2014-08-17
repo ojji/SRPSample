@@ -1,4 +1,5 @@
-﻿using EcommerceLib.Domain;
+﻿using System.Linq;
+using EcommerceLib.Domain;
 
 namespace EcommerceLib.Services.OrderProcessor
 {
@@ -17,6 +18,8 @@ namespace EcommerceLib.Services.OrderProcessor
 
         public void Checkout(Order order)
         {
+            if (!order.Cart.Items.Any()) return;
+
             if (!_inventoryService.ReserveItems(order.Cart.Items))
             {
                 throw new OrderFailedException("order failed", new ItemReservationFailedException(order.Cart.Items));

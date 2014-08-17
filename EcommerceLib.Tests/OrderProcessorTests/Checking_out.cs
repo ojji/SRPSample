@@ -6,11 +6,24 @@ using EcommerceLib.Services.OrderProcessor;
 using EcommerceLib.Services.PriceCalculator;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace EcommerceLib.Tests.OrderProcessorTests
 {
     public class Checking_out : CheckoutTestBase
     {
+        [Test]
+        public void An_empty_shopping_cart_should_return_immediately()
+        {
+            var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
+            var emptyShoppingCart = new ShoppingCart(new Mock<IPriceCalculator>().Object) { CustomerEmail = "empty@user.com" };
+            var emptyOrder = new Order(emptyShoppingCart, new PaymentDetails());
+
+            subject.Checkout(emptyOrder);
+            InventoryService.Verify(s => s.ReserveItems(It.IsAny<IEnumerable<OrderItem>>()), Times.Never);
+        }
+      
+
         [Test]
         public void Should_reserve_items_in_the_inventory()
         {
@@ -167,10 +180,12 @@ namespace EcommerceLib.Tests.OrderProcessorTests
     {
         internal static ShoppingCart GetSimpleShoppingCart()
         {
-            return new ShoppingCart(new Mock<IPriceCalculator>().Object)
+            var cart  = new ShoppingCart(new Mock<IPriceCalculator>().Object)
             {
                 CustomerEmail = "sample@user.com"
             };
+            cart.Add(new OrderItem());
+            return cart;
         }
 
         internal static Mock<IInventoryService> GetSucceedingInventoryService()
