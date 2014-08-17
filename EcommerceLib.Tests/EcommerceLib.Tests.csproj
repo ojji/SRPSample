@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OrderProcessorTests\Checking_out.cs" />
+    <Compile Include="OrderProcessorTests\OrderProcessorTests.cs" />
     <Compile Include="PricingStrategyTests\BuyXItemsGetYDiscountFromPriceTests\BuyXItemsGetYDiscountFromPriceTests.cs" />
     <Compile Include="PricingStrategyTests\BuyXItemsGetYFreeTests\BuyXItemsGetYFreeTests.cs" />
     <Compile Include="PricingStrategyTests\DefaultPricingTests\DefaultPricingTests.cs" />
