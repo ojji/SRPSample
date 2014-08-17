@@ -7,6 +7,7 @@ namespace EcommerceLib.Domain.PricingStrategies
         public string ItemId { get; private set; }
         public int QuantityToBuy { get; private set; }
         public int QuantityToGetFree { get; private set; }
+        public string Name { get; private set; }
 
         public BuyXItemsGetYFree(string itemId, int quantityToBuy, int quantityToGetFree)
         {
@@ -16,8 +17,9 @@ namespace EcommerceLib.Domain.PricingStrategies
             ItemId = itemId;
             QuantityToBuy = quantityToBuy;
             QuantityToGetFree = quantityToGetFree;
+            Name = string.Format("DISCOUNT: Buy {0} get {1} free.", QuantityToBuy, QuantityToGetFree);
         }
-
+        
         public bool MatchesItem(OrderItem order)
         {
             return (order.Identifier == ItemId && order.Quantity >= QuantityToBuy);

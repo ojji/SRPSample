@@ -2,6 +2,8 @@
 {
     public class DefaultPricing : IPricingStrategy
     {
+        public string Name { get { return "Full price."; } }
+
         public bool MatchesItem(OrderItem order)
         {
             return true;

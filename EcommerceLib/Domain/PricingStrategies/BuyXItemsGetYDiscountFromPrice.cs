@@ -7,6 +7,7 @@ namespace EcommerceLib.Domain.PricingStrategies
         public string ItemId { get; private set; }
         public int DiscountedQuantity { get; private set; }
         public decimal Discount { get; private set; }
+        public string Name { get; private set; }
 
         public BuyXItemsGetYDiscountFromPrice(string itemId, int discountedQuantity, decimal discount)
         {
@@ -16,8 +17,9 @@ namespace EcommerceLib.Domain.PricingStrategies
             ItemId = itemId;
             DiscountedQuantity = discountedQuantity;
             Discount = discount;
+            Name = string.Format("DISCOUNT: Buy {0}, get {1:P} off.", DiscountedQuantity, Discount);
         }
-
+        
         public bool MatchesItem(OrderItem order)
         {
             return (order.Identifier == ItemId && order.Quantity >= DiscountedQuantity);

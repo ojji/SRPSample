@@ -14,7 +14,6 @@ namespace EcommerceLib.Tests.PricingStrategyTests.BuyXItemsGetYFreeTests
             Assert.Throws<ArgumentNullException>(() => new BuyXItemsGetYFree("", 2, 1));
         }
       
-
         [Test]
         public void Quantity_to_buy_should_be_positive()
         {
