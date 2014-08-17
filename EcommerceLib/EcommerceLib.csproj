@@ -46,8 +46,9 @@
     <Compile Include="Domain\PaymentDetails.cs" />
     <Compile Include="Domain\PaymentFailedException.cs" />
     <Compile Include="Domain\PaymentMethod.cs" />
-    <Compile Include="Domain\PricingStrategies\BuyXItemsGetYDiscountFromPriceStrategy.cs" />
-    <Compile Include="Domain\PricingStrategies\DefaultPricingStrategy.cs" />
+    <Compile Include="Domain\PricingStrategies\BuyXItemsGetYDiscountFromPrice.cs" />
+    <Compile Include="Domain\PricingStrategies\BuyXItemsGetYFree.cs" />
+    <Compile Include="Domain\PricingStrategies\DefaultPricing.cs" />
     <Compile Include="Domain\PricingStrategies\IPricingStrategy.cs" />
     <Compile Include="Domain\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

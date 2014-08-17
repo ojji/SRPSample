@@ -2,13 +2,13 @@
 
 namespace EcommerceLib.Domain.PricingStrategies
 {
-    public class BuyXItemsGetYDiscountFromPriceStrategy : IPricingStrategy
+    public class BuyXItemsGetYDiscountFromPrice : IPricingStrategy
     {
         public string ItemId { get; private set; }
         public int DiscountedQuantity { get; private set; }
         public decimal Discount { get; private set; }
 
-        public BuyXItemsGetYDiscountFromPriceStrategy(string itemId, int discountedQuantity, decimal discount)
+        public BuyXItemsGetYDiscountFromPrice(string itemId, int discountedQuantity, decimal discount)
         {
             if (string.IsNullOrEmpty(itemId)) { throw new ArgumentNullException("itemId"); }
             if (discountedQuantity < 1) { throw new ArgumentOutOfRangeException("discountedQuantity"); }

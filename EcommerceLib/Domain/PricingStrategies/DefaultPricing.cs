@@ -1,6 +1,6 @@
 ﻿namespace EcommerceLib.Domain.PricingStrategies
 {
-    public class DefaultPricingStrategy : IPricingStrategy
+    public class DefaultPricing : IPricingStrategy
     {
         public bool MatchesItem(OrderItem order)
         {

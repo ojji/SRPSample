@@ -2,14 +2,14 @@
 using EcommerceLib.Domain.PricingStrategies;
 using NUnit.Framework;
 
-namespace EcommerceLib.Tests.PricingStrategyTests
+namespace EcommerceLib.Tests.PricingStrategyTests.DefaultPricingTests
 {
-    public class DefaultPricingStrategyTests
+    public class DefaultPricingTests
     {
         [Test]
         public void Should_match_any_orderitem()
         {
-            var subject = new DefaultPricingStrategy();
+            var subject = new DefaultPricing();
             var firstItem = new OrderItem { Identifier = "Item-1", ItemCost = 10m, Quantity = 1 };
             var secondItem = new OrderItem { Identifier = "Item-2", ItemCost = 10m, Quantity = 4 };
 
@@ -20,7 +20,7 @@ namespace EcommerceLib.Tests.PricingStrategyTests
         [Test]
         public void The_price_should_equal_to_the_product_of_quantity_and_itemprice()
         {
-            var subject = new DefaultPricingStrategy();
+            var subject = new DefaultPricing();
             var firstItem = new OrderItem { Identifier = "Item-1", ItemCost = 10m, Quantity = 1};
             var secondItem = new OrderItem { Identifier = "Item-2", ItemCost = 10m, Quantity = 4 };
             
