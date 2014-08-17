@@ -7,7 +7,7 @@ using EcommerceLib.Services.PriceCalculator;
 using Moq;
 using NUnit.Framework;
 
-namespace EcommerceLib.Tests.OrderProcessorTests
+namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
 {
     public class OrderProcessorTests
     {
