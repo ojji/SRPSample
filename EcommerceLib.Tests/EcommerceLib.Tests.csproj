@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OrderProcessorTests\Checking_out.cs" />
+    <Compile Include="PricingStrategyTests\BuyXItemsGetYDiscountFromPriceStrategyTests.cs" />
+    <Compile Include="PricingStrategyTests\DefaultPricingStrategyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShoppingCartTests\ShoppingCartTests.cs" />
   </ItemGroup>
