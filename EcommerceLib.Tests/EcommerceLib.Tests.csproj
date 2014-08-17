@@ -49,6 +49,7 @@
     <Compile Include="PricingStrategyTests\BuyXItemsGetYFreeTests\BuyXItemsGetYFreeTests.cs" />
     <Compile Include="PricingStrategyTests\DefaultPricingTests\DefaultPricingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicesTests\DefaultPriceCalculatorTests\DefaultPriceCalculatorTests.cs" />
     <Compile Include="ServicesTests\OrderProcessorTests\OrderProcessorTests.cs" />
     <Compile Include="ShoppingCartTests\ShoppingCartTests.cs" />
   </ItemGroup>
