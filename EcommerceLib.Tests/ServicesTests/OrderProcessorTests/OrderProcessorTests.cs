@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime;
 using EcommerceLib.Domain;
 using EcommerceLib.Services;
 using EcommerceLib.Services.OrderProcessor;
 using EcommerceLib.Services.PriceCalculator;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
 {
@@ -24,6 +26,21 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
                 InventoryService.Verify(s => s.ReserveItems(It.IsAny<IEnumerable<OrderItem>>()), Times.Never);
             }
 
+            [Test]
+            [TestCase(OrderState.Processed, ExpectedException = typeof(InvalidOperationException))]
+            [TestCase(OrderState.InventoryReservationFailed, ExpectedException = typeof(InvalidOperationException))]
+            [TestCase(OrderState.PaymentFailed, ExpectedException = typeof(InvalidOperationException))]
+            public void Checking_out_an_order_not_in_awaiting_process_state_throws_an_InvalidOperationException(OrderState orderState)
+            {
+                var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
+                var alreadyProcessedOrder = new Order(OrderTestUtils.GetSimpleShoppingCart(), OrderTestUtils.GetSimplePaymentDetails())
+                {
+                    State = orderState
+                };
+
+                subject.Checkout(alreadyProcessedOrder);
+            }
+      
 
             [Test]
             public void Should_reserve_items_in_the_inventory()
@@ -46,10 +63,20 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
                 public void Should_throw_OrderFailedException()
                 {
                     var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
-
-                    Assert.That(() => subject.Checkout(Order), Throws.Exception.TypeOf<OrderFailedException>());
-                    Assert.That(() => subject.Checkout(Order), Throws.InnerException.TypeOf<ItemReservationFailedException>());
+                    Assert.That(() => subject.Checkout(Order), Throws.Exception.TypeOf<OrderFailedException>()
+                        .And.InnerException.TypeOf<ItemReservationFailedException>()
+                        .And.InnerException.Property("Items"));
                 }
+
+                [Test]
+                [ExpectedException]
+                public void Should_set_order_state_to_inventory_reservation_failed()
+                {
+                    var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
+                    subject.Checkout(Order);
+                    Assert.That(Order.State, Is.EqualTo(OrderState.InventoryReservationFailed));
+                }
+      
 
                 [Test]
                 public void The_item_reservation_exception_should_contain_the_items_that_could_not_be_reserved()
@@ -105,6 +132,17 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
                     }
 
                     [Test]
+                    [ExpectedException]
+                    public void Should_set_order_state_to_payment_failed()
+                    {
+                        var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
+                        subject.Checkout(Order);
+
+                        Assert.That(Order.State, Is.EqualTo(OrderState.PaymentFailed));
+                    }
+      
+
+                    [Test]
                     public void Should_put_back_reserved_items_to_the_inventory()
                     {
                         try
@@ -125,9 +163,9 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
                     public void Should_throw_OrderFailedException()
                     {
                         var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
-
-                        Assert.That(() => subject.Checkout(Order), Throws.Exception.TypeOf<OrderFailedException>());
-                        Assert.That(() => subject.Checkout(Order), Throws.InnerException.TypeOf<PaymentFailedException>().And.InnerException.Property("PaymentDetails").EqualTo(Order.PaymentDetails));
+                        Assert.That(() => subject.Checkout(Order), Throws.Exception.TypeOf<OrderFailedException>()
+                            .And.InnerException.TypeOf<PaymentFailedException>()
+                            .And.InnerException.Property("PaymentDetails").EqualTo(Order.PaymentDetails));
                     }
                 }
 
@@ -139,6 +177,14 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
                     {
                         var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
                         Assert.DoesNotThrow(() => subject.Checkout(Order));
+                    }
+
+                    [Test]
+                    public void Should_set_order_state_to_processed()
+                    {
+                        var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
+                        subject.Checkout(Order);
+                        Assert.That(Order.State, Is.EqualTo(OrderState.Processed));
                     }
 
                     [Test]

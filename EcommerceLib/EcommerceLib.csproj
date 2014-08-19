@@ -43,6 +43,7 @@
     <Compile Include="Domain\ItemReservationFailedException.cs" />
     <Compile Include="Domain\OrderFailedException.cs" />
     <Compile Include="Domain\OrderItem.cs" />
+    <Compile Include="Domain\OrderState.cs" />
     <Compile Include="Domain\PaymentDetails.cs" />
     <Compile Include="Domain\PaymentFailedException.cs" />
     <Compile Include="Domain\PaymentMethod.cs" />
