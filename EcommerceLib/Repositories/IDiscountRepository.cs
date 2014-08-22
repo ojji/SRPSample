@@ -3,7 +3,6 @@ using EcommerceLib.Domain.PricingStrategies;
 
 namespace EcommerceLib.Repositories
 {
-
     public interface IDiscountRepository
     {
         IEnumerable<IPricingStrategy> GetDiscountsFor(string itemId);
