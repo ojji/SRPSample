@@ -51,6 +51,7 @@
     <Compile Include="Domain\PaymentMethod.cs" />
     <Compile Include="Domain\PricingStrategies\BuyXItemsGetYPercentOff.cs" />
     <Compile Include="Domain\PricingStrategies\BuyXItemsGetYFree.cs" />
+    <Compile Include="Domain\PricingStrategies\FlatXPercentOff.cs" />
     <Compile Include="Domain\PricingStrategies\FullPrice.cs" />
     <Compile Include="Domain\PricingStrategies\IOrderItemDiscount.cs" />
     <Compile Include="Domain\PricingStrategies\IMembershipDiscount.cs" />

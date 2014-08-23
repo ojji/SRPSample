@@ -2,7 +2,7 @@
 using EcommerceLib.Domain.PricingStrategies;
 using NUnit.Framework;
 
-namespace EcommerceLib.Tests.PricingStrategyTests.FullPriceTests
+namespace EcommerceLib.Tests.PricingStrategyTests
 {
     public class FullPriceTests
     {

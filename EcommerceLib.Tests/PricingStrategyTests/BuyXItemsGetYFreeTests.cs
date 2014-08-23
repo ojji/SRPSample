@@ -3,7 +3,7 @@ using EcommerceLib.Domain;
 using EcommerceLib.Domain.PricingStrategies;
 using NUnit.Framework;
 
-namespace EcommerceLib.Tests.PricingStrategyTests.BuyXItemsGetYFreeTests
+namespace EcommerceLib.Tests.PricingStrategyTests
 {
     public class BuyXItemsGetYFreeTests
     {
