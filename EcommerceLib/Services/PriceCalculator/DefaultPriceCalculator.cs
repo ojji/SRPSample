@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EcommerceLib.Domain;
 using EcommerceLib.Domain.PricingStrategies;
 using EcommerceLib.Repositories;
@@ -11,42 +12,45 @@ namespace EcommerceLib.Services.PriceCalculator
     public class DefaultPriceCalculator : IPriceCalculator
     {
         private readonly IDiscountRepository _repository;
-
+        
         /// <summary>
-        /// Initializes a price calculator class.
-        /// </summary>
-        public DefaultPriceCalculator() : this(null) { }
-
-        /// <summary>
-        /// Initializes a price calculator class.
+        /// Initializes a price calculator class with full price default pricing strategy.
         /// </summary>
         /// <param name="repository">The repository containing our discounts.</param>
-        public DefaultPriceCalculator(IDiscountRepository repository)
+        public DefaultPriceCalculator(IDiscountRepository repository) : this(repository, new FullPrice())
         {
-            Default = new DefaultPricing();
+        }
+
+        /// <summary>
+        /// Initializes a price calculator class with supplied default pricing strategy.
+        /// </summary>
+        /// <param name="repository">The repository containing our discounts.</param>
+        /// <param name="defaultPriceStrategy">The default pricing strategy to use when no discounts can be applied.</param>
+        public DefaultPriceCalculator(IDiscountRepository repository, IOrderItemDiscount defaultPriceStrategy)
+        {
+            if (repository == null) { throw new ArgumentNullException("repository"); }
+            if (defaultPriceStrategy == null) { throw new ArgumentNullException("defaultPriceStrategy"); }
             _repository = repository;
+            Default = defaultPriceStrategy;
         }
 
         /// <summary>
         /// The default pricing strategy to use when no discounts are found.
         /// </summary>
-        public IPricingStrategy Default { get; private set; }
+        public IOrderItemDiscount Default { get; private set; }
 
         /// <summary>
-        /// Calculates an <see cref="OrderItem"/>'s lowest price according to
-        /// the currently stored discounts.
+        /// Calculates an <see cref="OrderItem"/>'s price for the <see cref="Customer"/>,
+        /// applying the available discounts.
         /// </summary>
+        /// <param name="customer">The <see cref="Customer"/> for which the price should be calculated.</param>
         /// <param name="item">The <see cref="OrderItem"/> for which the price should be calculated.</param>
         /// <returns>The item's lowest price.</returns>
-        public decimal CalculatePrice(OrderItem item)
+        public decimal CalculatePrice(Customer customer, OrderItem item)
         {
-            if (_repository == null)
-            {
-                return Default.CalculateItemPrice(item);
-            }
-
             var biggestDiscount = _repository.GetDiscountsFor(item.Identifier)
-                .OrderBy(e => e.CalculateItemPrice(item))
+                .Where(d => d.MatchesTo(customer, item))
+                .OrderBy(e => e.Discount.CalculateItemPrice(item))
                 .FirstOrDefault();
 
             if (biggestDiscount == null)
@@ -54,7 +58,7 @@ namespace EcommerceLib.Services.PriceCalculator
                 return Default.CalculateItemPrice(item);
             }
 
-            return biggestDiscount.CalculateItemPrice(item);
+            return biggestDiscount.Discount.CalculateItemPrice(item);
         }
     }
 }

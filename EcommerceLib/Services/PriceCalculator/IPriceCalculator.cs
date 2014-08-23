@@ -5,7 +5,7 @@ namespace EcommerceLib.Services.PriceCalculator
 {
     public interface IPriceCalculator
     {
-        IPricingStrategy Default { get; }
-        decimal CalculatePrice(OrderItem item);
+        IOrderItemDiscount Default { get; }
+        decimal CalculatePrice(Customer customer, OrderItem item);
     }
 }

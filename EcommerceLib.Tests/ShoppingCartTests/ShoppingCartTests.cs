@@ -81,8 +81,8 @@ namespace EcommerceLib.Tests.ShoppingCartTests
             subject.Add(secondItem);
 
             subject.GetTotalCost();
-            PriceCalculator.Verify(pc => pc.CalculatePrice(firstItem), Times.Once);
-            PriceCalculator.Verify(pc => pc.CalculatePrice(secondItem), Times.Once);
+            PriceCalculator.Verify(pc => pc.CalculatePrice(It.IsAny<Customer>(), firstItem), Times.Once);
+            PriceCalculator.Verify(pc => pc.CalculatePrice(It.IsAny<Customer>(), secondItem), Times.Once);
         }
     }
 }

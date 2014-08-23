@@ -9,6 +9,8 @@ namespace EcommerceLib.Domain
         private readonly List<OrderItem> _orderItems;
         private readonly IPriceCalculator _priceCalculator;
 
+        public Customer CurrentCustomer { get; set; }
+
         public ShoppingCart(IPriceCalculator priceCalculator)
         {
             _priceCalculator = priceCalculator;
@@ -20,11 +22,9 @@ namespace EcommerceLib.Domain
             get { return _orderItems; }
         }
 
-        public string CustomerEmail { get; set; }
-
         public decimal GetTotalCost()
         {
-            return _orderItems.Sum(orderItem => _priceCalculator.CalculatePrice(orderItem));
+            return _orderItems.Sum(orderItem => _priceCalculator.CalculatePrice(CurrentCustomer, orderItem));
         }
 
         public void Add(OrderItem item)

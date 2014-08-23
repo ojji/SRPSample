@@ -46,9 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainTests\OrderTests\OrderTests.cs" />
+    <Compile Include="DomainTests\ProductTests\ProductTests.cs" />
     <Compile Include="PricingStrategyTests\BuyXItemsGetYFreeTests\BuyXItemsGetYFreeTests.cs" />
     <Compile Include="PricingStrategyTests\BuyXItemsGetYPercentOffTests\BuyXItemsGetYPercentOffTests.cs" />
-    <Compile Include="PricingStrategyTests\DefaultPricingTests\DefaultPricingTests.cs" />
+    <Compile Include="PricingStrategyTests\FullPriceTests\FullPriceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicesTests\DefaultPriceCalculatorTests\DefaultPriceCalculatorTests.cs" />
     <Compile Include="ServicesTests\OrderProcessorTests\OrderProcessorTests.cs" />

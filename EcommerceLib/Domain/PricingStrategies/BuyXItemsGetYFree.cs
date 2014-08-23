@@ -5,7 +5,7 @@ namespace EcommerceLib.Domain.PricingStrategies
     /// <summary>
     /// Pricing strategy for Buy-X-Items-Get-Y-Items-Free discounts.
     /// </summary>
-    public class BuyXItemsGetYFree : IPricingStrategy
+    public class BuyXItemsGetYFree : IOrderItemDiscount
     {
         /// <summary>
         /// The item id that the discount applies to.

@@ -3,7 +3,7 @@
     /// <summary>
     /// The default, full-price pricing strategy.
     /// </summary>
-    public class DefaultPricing : IPricingStrategy
+    public class FullPrice : IOrderItemDiscount
     {
         /// <summary>
         /// The pricing strategy name.

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime;
 using EcommerceLib.Domain;
 using EcommerceLib.Services;
 using EcommerceLib.Services.OrderProcessor;
 using EcommerceLib.Services.PriceCalculator;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
 {
@@ -19,7 +17,7 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
             public void An_empty_shopping_cart_should_return_immediately()
             {
                 var subject = new OrderProcessor(InventoryService.Object, PaymentService.Object, NotificationService.Object);
-                var emptyShoppingCart = new ShoppingCart(new Mock<IPriceCalculator>().Object) { CustomerEmail = "empty@user.com" };
+                var emptyShoppingCart = new ShoppingCart(new Mock<IPriceCalculator>().Object) { CurrentCustomer = null };
                 var emptyOrder = new Order(emptyShoppingCart, new PaymentDetails());
 
                 subject.Checkout(emptyOrder);
@@ -227,10 +225,7 @@ namespace EcommerceLib.Tests.ServicesTests.OrderProcessorTests
         {
             internal static ShoppingCart GetSimpleShoppingCart()
             {
-                var cart = new ShoppingCart(new Mock<IPriceCalculator>().Object)
-                {
-                    CustomerEmail = "sample@user.com"
-                };
+                var cart = new ShoppingCart(new Mock<IPriceCalculator>().Object) { CurrentCustomer = null };
                 cart.Add(new OrderItem());
                 return cart;
             }

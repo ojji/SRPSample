@@ -1,6 +1,6 @@
 ﻿namespace EcommerceLib.Domain.PricingStrategies
 {
-    public interface IPricingStrategy
+    public interface IOrderItemDiscount
     {
         string Name { get; }
         bool MatchesItem(OrderItem order);
